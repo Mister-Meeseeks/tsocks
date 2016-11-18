@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Wrapper script for use of the tsocks(8) transparent socksification library
 #
 # There are three forms of usage for this script:
@@ -42,18 +42,28 @@ if [ $# = 0 ] ; then
    exit
 fi
 
+baseLib=libtsocks.so
+usrLib=/usr/lib/$baseLib
+usrLocalLib=/usr/local/lib/$baseLib
+
+if [[ -e $usrLib ]] ; then
+    libPath=$usrLib
+else
+    libPath=$usrLocalLib
+fi
+
 case "$1" in
 	on)
 		if [ -z "$LD_PRELOAD" ]
 			then
-				export LD_PRELOAD="/usr/lib/libtsocks.so"
+				export LD_PRELOAD=$libPath
 			else
-				echo $LD_PRELOAD | grep -q "/usr/lib/libtsocks\.so" || \
-				export LD_PRELOAD="/usr/lib/libtsocks.so $LD_PRELOAD"
+				echo $LD_PRELOAD | grep -q "$libPath" || \
+				export LD_PRELOAD="$libPath $LD_PRELOAD"
 		fi
 	;;
 	off)
-		export LD_PRELOAD=`echo -n $LD_PRELOAD | sed 's/\/usr\/lib\/libtsocks.so \?//'`
+		export LD_PRELOAD=`echo -n $LD_PRELOAD | sed 's+$libPath \?++'`
 		if [ -z "$LD_PRELOAD" ]
 			then
 				unset LD_PRELOAD
@@ -68,10 +78,10 @@ case "$1" in
 	*)
 		if [ -z "$LD_PRELOAD" ]
 		then
-			export LD_PRELOAD="/usr/lib/libtsocks.so"
+			export LD_PRELOAD=$libPath
 		else
-			echo $LD_PRELOAD | grep -q "/usr/lib/libtsocks\.so" || \
-			export LD_PRELOAD="/usr/lib/libtsocks.so $LD_PRELOAD"
+			echo $LD_PRELOAD | grep -q "$libPath" || \
+			export LD_PRELOAD="$libPath $LD_PRELOAD"
 		fi
 
 		if [ $# = 0 ]

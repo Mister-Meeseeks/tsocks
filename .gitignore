@@ -31,3 +31,12 @@
 # Debug files
 *.dSYM/
 *.su
+
+Makefile
+config.cache
+config.h
+config.log
+inspectsocks
+saveme
+validateconf
+						

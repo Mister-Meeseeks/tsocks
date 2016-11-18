@@ -12,10 +12,14 @@ libDir=$installDir/lib/
 manDir=$installDir/man/
 etcDir=/etc/
 
+cd $scriptDir/
+
 mkdir -p $binDir $libDir $manDir
 
 cp -d libtsocks.so* $libDir/
 cp tsocks $binDir/
+
+cp tsocks.conf.complex.example $etcDir/
 
 mkdir -p $manDir/man1
 mkdir -p $manDir/man8

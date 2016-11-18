@@ -62,7 +62,21 @@ This should result in the creation of the following:
 them, seek help using the contacts listed on
 http://tsocks.sourceforge.net/contact.php
 
-5. Install the compiled library. You can skip this step if you only plan
+5. Installation. You have two options here.
+
+5a. Install by calling the script
+
+   sudo ./install.sh
+
+This writes all installed files to the /usr/local/ directory system. Which is
+should be the preferred destination if you're using a distro package manager.
+(Keep non package files out of the /lib and /usr/bin directories). This also
+avoids the need to keep the copy of the source repository, since it fully copies
+over all needed files.
+
+OR
+
+5b. Use the original install procedures. You can skip this step if you only plan
 to use the library for personal use. If you want all users on the machine
 to be able to use it however, su to root then type
 
